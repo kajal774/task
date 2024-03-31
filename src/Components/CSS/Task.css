@@ -1,0 +1,83 @@
+.task{
+margin: 10px;
+padding: 2px;
+border: 1px solid #F3F1F2;
+border-radius: 5px;
+background-color:#F3F1F2;
+position: relative;
+
+}
+.tasktitle{
+padding: 0px;
+margin: 0px;
+display: flex;
+justify-content: space-between;
+}
+.tasktitle h4{
+    padding: 0;
+    margin: 0;
+}
+.taskpriority{
+    height: 2em;
+    width: 2em;
+    text-align: center;
+    padding: 0px;
+    margin: 0%;
+}
+.taskbody{
+    padding: 0px;
+    margin: 0px;
+   font-size: small;
+}
+.taskbody .middle{
+    display: flex;
+    justify-content: space-between;
+    padding: 0%;
+    margin: 0px;
+}
+.middle img{
+    height: 2em;
+    width: 2em;
+    background-color: #24699A;
+    border-radius: 2px;
+    color: white;
+    position: relative;
+}
+.task-status{
+    padding: 0.5em 1em;
+}
+.isactive{
+    position: absolute;
+    top: 62%;
+    left: 21.5%;
+    background-color: #D9D9D9;
+    padding: 0.5em;
+    margin: 0%;
+    font-size: medium;
+    border-radius: 5px;
+
+}
+.isactive .edit,hr,.delete{
+    padding: 0 20px 0 0;
+    margin: 0;
+    cursor: pointer;
+
+}
+.btn1{
+    margin: 5px 10px;
+}
+.menu {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .isactive {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    background-color: #D9D9D9;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }

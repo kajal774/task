@@ -1,0 +1,14 @@
+.head{
+    display: flex;
+    justify-content: space-between;
+    padding: 35px 50px;
+   
+  }
+  .head .taskboard{
+    font-weight: 700;
+    font-size: x-large
+  }
+  .head img{
+    height: 2.5em;
+    width: 2.5em;
+  }
