@@ -1,37 +1,47 @@
 import React, { useContext, useState } from 'react'
 import "./CSS/Task.css"
-import menu from "../Images/menu.png"
 import Addtask from './Addtask';
 import MyContext from '../Context/MyContext';
+import img1 from "../Images/edit.svg";
+import img2 from "../Images/delete.svg"
 const Task = (props) => {
   
-  const {user}=props
-  const [active ,setactive]=useState(null);
-  const[showedit,setshowedit]=useState(null);
-  const[editid,seteditid]=useState(2)
+  const {setuser,user,seteditformdata,editfromdata}=useContext(MyContext);
+  const[showedit,setshowedit]=useState(false);
+ 
   const[del,setdel]=useState(null);
-  const handleActive=()=>{
-    setactive(true)
+  const handleedit=(e,u)=>{
+
+    setshowedit(true) 
+    seteditformdata({
+      id:u.id,
+      title: u.title,
+      description: u.description,
+       team: u.team,
+      assignee: u.assignee,
+        priority: u.priority, 
+       status: u.status
+    })
   }
-  const handleedit=(id)=>{
-    seteditid(id)
-    setshowedit(true)
-     setactive(false)
-  }
-  const {setuser,mydata}=useContext(MyContext);
+  
   const handleDelete = () => {
     setdel(true)
   }
-  const handleYes=(id)=>{
-    debugger
-    const filteredTasks = user.filter(task => task.id !== id);
-    console.log(filteredTasks)
-    setuser(filteredTasks);
+  const handleYes=(e,u)=>{
+    e.preventDefault();
+    const newdata=[...user];
+    const index=user.length>1?user.findIndex((data)=>data.id===u.id):u.id;
+   newdata.splice(index,1)
+    setuser(newdata)
     setdel(false);
   }
+  const handleclose=()=>{
+    props.setpopup(false)
+    setshowedit(false);
+    
+  }
   return (
-    user.map((u,id)=>{
-      console.log(user,mydata)
+    props.user.map((u,id)=>{
       return(<div className='task' key={id}>
       <div className='tasktitle'>
         <h4>{u.title}</h4>
@@ -43,17 +53,12 @@ const Task = (props) => {
           <div className='middle'>
           <p className='assignperson'> @{u.assignee}</p>
           <div className='menu'>
-          <img src={menu} alt='not_found' className='img' onClick={handleActive}></img>
-          {active && editid===id?
-          <div className='isactive'>
-            <p className='edit' onClick={()=>handleedit(id)} data-toggle="modal" data-target="#myModal">Edit</p>
+            <img className='edit' src={img1} alt='not found' onClick={(e)=>handleedit(e,u)} data-toggle="modal" data-target="#myModal"></img>
             <hr></hr>
-            <p className='delete' onClick={handleDelete} data-toggle="modal" data-target="#myModal">Delete</p>
-          </div>
-          :null}
+            <img className='' src={img2} style={{"height":"2.1em","width":"2.1em"}} alt='not found' onClick={handleDelete} data-toggle="modal" data-target="#myModal"></img>
           </div>
            </div>
-           {showedit?<Addtask active={active} showedit={showedit} user={user}/>:null
+           {showedit?<Addtask  handleclose={handleclose} showedit={showedit} setshowedit={setshowedit}user={user} editfromdata={editfromdata}/>:null
           }
          {del?<div id="myModal"  class="modal fade" role="dialog">
 <div class="modal-dialog">
@@ -65,7 +70,7 @@ const Task = (props) => {
     <div class="modal-body mbody">
      <p>Do You Wish To Delete Task ?</p>  
       Task1
-      <button type="button" class="btn btn1" data-dismiss="modal" onClick={()=>handleYes(id)}>Yes</button>
+      <button type="button" class="btn btn1" data-dismiss="modal" onClick={(e)=>handleYes(e,u)}>Yes</button>
       <button type="button" class="btn btn1" data-dismiss="modal">No</button>
       </div>
   </div>

@@ -11,19 +11,26 @@ import MyContext from "./Context/MyContext";
 function App() {
   const [popup,setpopup]=useState(false);
   const {user}=useContext(MyContext);
+  const[fname,setfname]=useState("")
 
   const handleAdd=()=>{
     setpopup(true)
 
   }
+  const handleFilterAssigneName=(e)=>{
+setfname(e.target.value);   
+    
+  }
+
   return (
+   
     <div className="App">
      <Header/>
       <div className='innerbody'>
         <div className='top'>
           <div className='fliters'>
             <div className="filterby">
-          Filter By: <input type='text' placeholder='Assignee Name'></input>
+          Filter By: <input type='text' placeholder='Assignee Name' name="faName" value={fname} onChange={(e)=>handleFilterAssigneName(e)}></input>
           <input type='text'  list='browsers' placeholder='Priority' />
             <datalist id='browsers'>
             <option value='P0'></option> <option value='P1'></option><option value='P2'></option>
@@ -43,52 +50,50 @@ function App() {
         <div className='bottom'>
 
           <div className='divs'>
-          {user.filter((i) => i.status === "pending").length > 0 ? 
-      <>
+          
+      
         <h5 className='div1'>Pending</h5>
+        {user.filter((i) => i.status === "pending").length > 0 ? 
         <div className='divtask'>
           <Task user={user.filter((i) => i.status === "pending")} />
         </div>
-      </>
+    
     : null}
             </div>
           <div className='divs'>
-          {user.filter((i) => i.status === "InProgress").length > 0 ?
-      <>
+          
+      
         <h5 className='div2'>In Progress</h5>
+        {user.filter((i) => i.status === "InProgress").length > 0 ?
         <div className='divtask'>
           <Task user={user.filter((i) => i.status === "InProgress")} />
-        </div>
-      </>: null}
+        </div>: null}
             </div>
           <div className='divs'>
-          {user.filter((i) => i.status === "Completed").length > 0 ? 
-      <>
+          
+    
         <h5 className='div3'>Completed</h5>
+        {user.filter((i) => i.status === "Completed").length > 0 ? 
         <div className='divtask'>
           <Task user={user.filter((i) => i.status === "Completed")} />
-        </div>
-      </>
-    : null}
+        </div>: null}
             
             </div>
           <div className='divs'>
-          {user.filter((i) => i.status === "Deployed").length > 0 ?
-      <>
+          
         <h5 className='div4'>Deployed</h5>
+        {user.filter((i) => i.status === "Deployed").length > 0 ?
         <div className='divtask'>
           <Task user={user.filter((i) => i.status === "Deployed")} />
-        </div>
-      </>: null}
+        </div>: null}
             </div>
           <div className='divs'>
-          {user.filter((i) => i.status === "Deffered").length > 0 ?
-      <>
+          
         <h5 className='div5'>Deferred</h5>
+        {user.filter((i) => i.status === "Deffered").length > 0 ?
         <div className='divtask'>
           <Task user={user.filter((i) => i.status === "Deffered")} />
-        </div>
-      </> : null}
+        </div>: null}
            </div>
         </div>
       </div>
